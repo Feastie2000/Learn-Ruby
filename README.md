@@ -55,3 +55,12 @@ By default vagrant sets up a shared folder between the the virtual server and yo
 
 The next step is to setup the server to be able to run Ruby on rails server.  To set this up I used the very good resource at GoRails: https://gorails.com/setup/ubuntu/16.04
 
+##Clone Git
+$ git clone https://github.com/Feastie2000/Learn-Ruby.git
+$ git config user.email "brian.feast@gmail.com"
+$ git config user.name "Feastie2000"
+$ git status
+$ git add <filename>
+$ git commit -m "<message>"
+$ git push
+
