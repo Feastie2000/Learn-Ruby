@@ -4,21 +4,7 @@
 sudo apt-get update
 
 #The first step is to install some dependencies for Ruby
-sudo apt-get --assume-yes install git-core 
-sudo apt-get --assume-yes install curl
-sudo apt-get --assume-yes install zlib1g-dev
-sudo apt-get --assume-yes install build-essential
-sudo apt-get --assume-yes install libssl-dev
-sudo apt-get --assume-yes install libreadline-dev
-sudo apt-get --assume-yes install libyaml-dev
-sudo apt-get --assume-yes install libsqlite3-dev
-sudo apt-get --assume-yes install sqlite3
-sudo apt-get --assume-yes install libxml2-dev
-sudo apt-get --assume-yes install libxslt1-dev
-sudo apt-get --assume-yes install libcurl4-openssl-dev
-sudo apt-get --assume-yes install python-software-properties
-sudo apt-get --assume-yes install libffi-dev
-sudo apt-get --assume-yes install nodejs
+sudo apt-get --assume-yes install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev nodejs
 
 #Install Ruby using rbenv
 git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
@@ -28,9 +14,22 @@ source ~/.bashrc
 
 
 #git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-#echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
-#exec $SHELL
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
 
-#rbenv install 2.3.3
-#rbenv global 2.3.3
-#ruby -v
+
+#Install Ruby
+ echo 'Installing Ruby and Rails'
+sudo -H -u vagrant bash -i -c 'rbenv install 2.3.3'
+sudo -H -u vagrant bash -i -c 'rbenv rehash'
+sudo -H -u vagrant bash -i -c 'rbenv global 2.3.3'
+sudo -H -u vagrant bash -i -c 'gem install bundler --no-ri --no-rdoc'
+sudo -H -u vagrant bash -i -c 'gem install rails -v 5.0.0.1'
+sudo -H -u vagrant bash -i -c 'rbenv rehash'
+
+#Setup MySQL
+echo 'Installing MySQL'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password TEST'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password TEST'
+sudo apt-get --assume-yes install mysql-server mysql-client libmysqlclient-dev
+
+exec $SHELL
